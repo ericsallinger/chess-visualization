@@ -1,0 +1,24 @@
+/* universal selector applies to all elements */
+*,
+*::after,
+*::before {
+    margin:0;
+    padding:0;
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%; /* counting on a browser default font size of 16px so 10/16=.625*/
+    /* this way 1rem = 10px which makes our lives easier */
+}
+
+body {
+    font-family: "Lato", sans-serif; 
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.7;
+    color: $color-grey-dark;
+    padding: 3rem;
+    box-sizing: border-box; /* very important - makes it so height and width include padding and margin, 
+                            rather than having those added on to the defined values */
+}
