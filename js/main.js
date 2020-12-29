@@ -8,21 +8,27 @@ function buildBoard(){
     let i;
     let j;
     let dark = false;
+    let flip = false;
     for (i = 0; i < files.length; i++) {
-      for (j = 0; j < ranks.length; j++) {
-        console.log(files[i] + ranks[j]);
+      flip = !flip      
+      flip ? dark = true: dark = false;     
+      for (j = 0; j < ranks.length; j++) { 
         createSquare(files[i],ranks[j],dark)
-        if (dark) {
-            // flip bool
-        }
+        dark = !dark
       }
     }
 };
 
-function createSquare(file,rank){
+function createSquare(file,rank,dark){
     var squareDiv = document.createElement("span");
-    squareDiv.setAttribute("class","board-square")
+    squareDiv.className = "board-square";
+    if(dark){ 
+      squareDiv.className += " dark-square";
+    }
+    else{
+      squareDiv.className += " light-square";
+    }
     squareDiv.setAttribute("id", file+rank);
-    board.appendChild(squareDiv)
+    board.appendChild(squareDiv);
 
 }

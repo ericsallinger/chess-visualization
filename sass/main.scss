@@ -1,12 +1,27 @@
 $color-grey-dark: white;
-$color-secondary: #A7925A;
-$color-dark-square: black;
+$color-secondary: #c5a880;
+$color-dark-square: #532e1c;
+$color-light-square: #e6e6e6;
+$color-border: #0f0f0f;
+$color-active-square: #00587a;
+
+
 @mixin clearfix {  
   &::after {
     content: "";
     clear: both;
     display: table;
   }
+}
+@mixin middleBox {
+    position: absolute;
+    top: 50vh;
+    transform: translateY(-50%);
+    margin: 1rem;
+    border: .3rem solid $color-border;
+    border-radius: 1rem;
+    background-color: darken($color-secondary,5%);
+    text-align: center;
 }
 
 *,
@@ -33,48 +48,102 @@ body {
 }
 
 .navbar{
-    position: absolute;
-    float: left;
-    margin: 1rem;
-    border: .1rem solid white;
-    background-color: $color-secondary;
-    @include clearfix();
+    @include middleBox();
+    left: 12.5%;
+
 
     .navbar--items{
         list-style: none;
-        float: left;
-
         li{
-            display: inline-block;
-            margin-left: 3rem;
+            display: block;
             padding: 3rem;
+
+            .btn{
+                font-size: 3rem;
+                border-radius: 1rem;
+                border: .2rem solid $color-border;
+                padding: 1rem;
+                background-color: darken($color-secondary,15%);
+                color:$color-light-square
+            }
+            .btn-nav{
+
+            }
+            .btn:hover {
+                transform: translateY(-0.2rem);
+                box-shadow: 0 1rem 2rem rgba(0,0,0,.2); /* x shadow, y shadow, blur, color*/
+            }
+            .btn:active {
+                transform: translateY(-0.1rem);
+                box-shadow: 0 0.5rem 1rem rgba(0,0,0,.2);
+            }
+
         }
     }
 }
 
 .board-container{
-    left: 50%;
-    transform: translateX(-50%);
     position: absolute;
-    height: 75vh;
-    width: 75vh;
+    left: 30%;
+    transform: translateX(-50%);
+    top: 50vh;
+    transform: translateY(-50%);
+    height: 85vh;
+    width: 85vh;
     line-height: 0;
+    border: .5rem solid $color-border;
+    border-radius: .3rem;
     .board-square{
         position: relative;
         display: inline-block;
         height: 12.5%;
         width: 12.5%;
-        background-color: $color-dark-square;
-        border: .1rem solid white;
-
-        .dark-square{
-
-        }
-
-        .light-square{
-
-        }
 
     }
+    .dark-square{
+        background-color: $color-dark-square;
+    }
+
+    .light-square{
+        background-color: $color-light-square;
+    }
+    .active-square{
+        background-color: $color-active-square;
+    }
     
+}
+
+.score-box{
+    @include middleBox();
+    right:12.5%;
+    top: 12.15%;
+    padding: 1rem;
+
+    .score-box--items{
+        list-style: none;
+        display: inline-block;
+    }
+    th{
+        padding: 0 0.8rem 0 0.8rem;
+        text-align: center;
+        width: 8rem;
+    }
+    td{
+        width: 8rem;
+    }
+    td:first-child {
+        border-right: solid 1px $color-dark-square;
+    }
+}
+
+.prompt-box{
+    @include middleBox();
+    right:15%;
+    padding: 3rem;
+
+    
+    p{
+        font-size: 4rem;
+    }
+
 }
