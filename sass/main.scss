@@ -1,4 +1,14 @@
-/* universal selector applies to all elements */
+$color-grey-dark: white;
+$color-secondary: #A7925A;
+$color-dark-square: black;
+@mixin clearfix {  
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+
 *,
 *::after,
 *::before {
@@ -8,8 +18,7 @@
 }
 
 html {
-    font-size: 62.5%; /* counting on a browser default font size of 16px so 10/16=.625*/
-    /* this way 1rem = 10px which makes our lives easier */
+    font-size: 62.5%;
 }
 
 body {
@@ -19,6 +28,53 @@ body {
     line-height: 1.7;
     color: $color-grey-dark;
     padding: 3rem;
-    box-sizing: border-box; /* very important - makes it so height and width include padding and margin, 
-                            rather than having those added on to the defined values */
+    box-sizing: border-box; 
+    background-color: $color-secondary;
+}
+
+.navbar{
+    position: absolute;
+    float: left;
+    margin: 1rem;
+    border: .1rem solid white;
+    background-color: $color-secondary;
+    @include clearfix();
+
+    .navbar--items{
+        list-style: none;
+        float: left;
+
+        li{
+            display: inline-block;
+            margin-left: 3rem;
+            padding: 3rem;
+        }
+    }
+}
+
+.board-container{
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    height: 75vh;
+    width: 75vh;
+    line-height: 0;
+    .board-square{
+        position: relative;
+        display: inline-block;
+        height: 12.5%;
+        width: 12.5%;
+        background-color: $color-dark-square;
+        border: .1rem solid white;
+
+        .dark-square{
+
+        }
+
+        .light-square{
+
+        }
+
+    }
+    
 }
