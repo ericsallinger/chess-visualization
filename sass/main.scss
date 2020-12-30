@@ -1,9 +1,9 @@
-$color-grey-dark: white;
 $color-secondary: #c5a880;
 $color-dark-square: #532e1c;
 $color-light-square: #e6e6e6;
 $color-border: #0f0f0f;
 $color-active-square: #00587a;
+
 
 
 @mixin clearfix {  
@@ -15,7 +15,7 @@ $color-active-square: #00587a;
 }
 @mixin middleBox {
     position: absolute;
-    top: 50vh;
+    top: 48.75vh;
     transform: translateY(-50%);
     margin: 1rem;
     border: .3rem solid $color-border;
@@ -41,32 +41,36 @@ body {
     font-weight: 400;
     font-size: 1.6rem;
     line-height: 1.7;
-    color: $color-grey-dark;
+    color: $color-light-square;
     padding: 3rem;
     box-sizing: border-box; 
     background-color: $color-secondary;
 }
 
 .navbar{
-    @include middleBox();
+    position: absolute;
+    top: 48.75vh;
+    transform: translateY(-50%);
+    margin: 1rem;
+    border: .3rem solid $color-border;
+    border-radius: 1rem;
+    background-color: darken($color-secondary,5%);
+    text-align: center;
     left: 12.5%;
-
-
     .navbar--items{
         list-style: none;
         li{
-            display: block;
             padding: 3rem;
-
-            .btn{
+            .btn, .btn:link, .btn:visited{
                 font-size: 3rem;
                 border-radius: 1rem;
                 border: .2rem solid $color-border;
                 padding: 1rem;
+                text-decoration: none;
                 background-color: darken($color-secondary,15%);
-                color:$color-light-square
-            }
-            .btn-nav{
+                color:$color-light-square;
+                transition: all .2s;
+                outline:none;
 
             }
             .btn:hover {
@@ -75,9 +79,12 @@ body {
             }
             .btn:active {
                 transform: translateY(-0.1rem);
-                box-shadow: 0 0.5rem 1rem rgba(0,0,0,.2);
+                box-shadow: 0 0.1rem 1rem rgba(0,0,0,.2);
             }
-
+            .btn-nav{
+                width: 12rem;
+            }
+            
         }
     }
 }
@@ -92,7 +99,7 @@ body {
     width: 85vh;
     line-height: 0;
     border: .5rem solid $color-border;
-    border-radius: .3rem;
+    border-radius: .5rem;
     .board-square{
         position: relative;
         display: inline-block;
@@ -107,16 +114,17 @@ body {
     .light-square{
         background-color: $color-light-square;
     }
-    .active-square{
-        background-color: $color-active-square;
-    }
+    // .active-square{
+    //     background-color: $color-active-square;
+    // }
     
 }
 
 .score-box{
     @include middleBox();
-    right:12.5%;
-    top: 12.15%;
+    left:13%;
+    transform: translateX(-6%);
+    top: 6.25%;
     padding: 1rem;
 
     .score-box--items{
@@ -140,7 +148,7 @@ body {
     @include middleBox();
     right:15%;
     padding: 3rem;
-
+    min-width: 12rem;
     
     p{
         font-size: 4rem;

@@ -13,14 +13,14 @@ body {
   font-weight: 400;
   font-size: 1.6rem;
   line-height: 1.7;
-  color: white;
+  color: #e6e6e6;
   padding: 3rem;
   box-sizing: border-box;
   background-color: #c5a880; }
 
 .navbar {
   position: absolute;
-  top: 50vh;
+  top: 48.75vh;
   transform: translateY(-50%);
   margin: 1rem;
   border: 0.3rem solid #0f0f0f;
@@ -31,22 +31,26 @@ body {
   .navbar .navbar--items {
     list-style: none; }
     .navbar .navbar--items li {
-      display: block;
       padding: 3rem; }
-      .navbar .navbar--items li .btn {
+      .navbar .navbar--items li .btn, .navbar .navbar--items li .btn:link, .navbar .navbar--items li .btn:visited {
         font-size: 3rem;
         border-radius: 1rem;
         border: 0.2rem solid #0f0f0f;
         padding: 1rem;
+        text-decoration: none;
         background-color: #ab844e;
-        color: #e6e6e6; }
+        color: #e6e6e6;
+        transition: all .2s;
+        outline: none; }
       .navbar .navbar--items li .btn:hover {
         transform: translateY(-0.2rem);
         box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
         /* x shadow, y shadow, blur, color*/ }
       .navbar .navbar--items li .btn:active {
         transform: translateY(-0.1rem);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
+        box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.2); }
+      .navbar .navbar--items li .btn-nav {
+        width: 12rem; }
 
 .board-container {
   position: absolute;
@@ -58,7 +62,7 @@ body {
   width: 85vh;
   line-height: 0;
   border: 0.5rem solid #0f0f0f;
-  border-radius: .3rem; }
+  border-radius: .5rem; }
   .board-container .board-square {
     position: relative;
     display: inline-block;
@@ -68,20 +72,19 @@ body {
     background-color: #532e1c; }
   .board-container .light-square {
     background-color: #e6e6e6; }
-  .board-container .active-square {
-    background-color: #00587a; }
 
 .score-box {
   position: absolute;
-  top: 50vh;
+  top: 48.75vh;
   transform: translateY(-50%);
   margin: 1rem;
   border: 0.3rem solid #0f0f0f;
   border-radius: 1rem;
   background-color: #bd9c6e;
   text-align: center;
-  right: 12.5%;
-  top: 12.15%;
+  left: 13%;
+  transform: translateX(-6%);
+  top: 6.25%;
   padding: 1rem; }
   .score-box .score-box--items {
     list-style: none;
@@ -97,7 +100,7 @@ body {
 
 .prompt-box {
   position: absolute;
-  top: 50vh;
+  top: 48.75vh;
   transform: translateY(-50%);
   margin: 1rem;
   border: 0.3rem solid #0f0f0f;
@@ -105,6 +108,7 @@ body {
   background-color: #bd9c6e;
   text-align: center;
   right: 15%;
-  padding: 3rem; }
+  padding: 3rem;
+  min-width: 12rem; }
   .prompt-box p {
     font-size: 4rem; }
