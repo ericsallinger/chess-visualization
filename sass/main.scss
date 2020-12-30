@@ -4,7 +4,8 @@ $color-light-square: #e6e6e6;
 $color-border: #0f0f0f;
 $color-active-square: #00587a;
 
-
+$font-size-medium: 3rem;
+$font-size-big: 4rem;
 
 @mixin clearfix {  
   &::after {
@@ -45,11 +46,49 @@ body {
     padding: 3rem;
     box-sizing: border-box; 
     background-color: $color-secondary;
+    
+    
+}
+
+.board-container{
+    position: absolute;
+    left: 30%;
+    transform: translateX(-50%);
+    top: 50vh;
+    transform: translateY(-50%);
+    height: 85vh;
+    width: 85vh;
+    line-height: 0;
+    border: .5rem solid $color-border;
+    box-shadow: 0px 20px 10px -2px white, 0px -13px 4px black;
+    transition: all .5s;
+
+
+
+    border-radius: .5rem;
+    .board-square{
+        position: relative;
+        display: inline-block;
+        height: 12.5%;
+        width: 12.5%;
+
+    }
+    .dark-square{
+        background-color: $color-dark-square;
+    }
+
+    .light-square{
+        background-color: $color-light-square;
+    }
+    // .active-square{
+    //     background-color: $color-active-square;
+    // }
+    
 }
 
 .navbar{
     position: absolute;
-    top: 48.75vh;
+    top: 57vh;
     transform: translateY(-50%);
     margin: 1rem;
     border: .3rem solid $color-border;
@@ -62,7 +101,7 @@ body {
         li{
             padding: 3rem;
             .btn, .btn:link, .btn:visited{
-                font-size: 3rem;
+                font-size: $font-size-medium;
                 border-radius: 1rem;
                 border: .2rem solid $color-border;
                 padding: 1rem;
@@ -87,37 +126,6 @@ body {
             
         }
     }
-}
-
-.board-container{
-    position: absolute;
-    left: 30%;
-    transform: translateX(-50%);
-    top: 50vh;
-    transform: translateY(-50%);
-    height: 85vh;
-    width: 85vh;
-    line-height: 0;
-    border: .5rem solid $color-border;
-    border-radius: .5rem;
-    .board-square{
-        position: relative;
-        display: inline-block;
-        height: 12.5%;
-        width: 12.5%;
-
-    }
-    .dark-square{
-        background-color: $color-dark-square;
-    }
-
-    .light-square{
-        background-color: $color-light-square;
-    }
-    // .active-square{
-    //     background-color: $color-active-square;
-    // }
-    
 }
 
 .score-box{
@@ -151,7 +159,20 @@ body {
     min-width: 12rem;
     
     p{
-        font-size: 4rem;
+        font-size: $font-size-big;
+    }
+
+}
+
+.timer-box{
+    @include middleBox();
+    right:15%;
+    top: 10%;
+    padding: 1rem 3rem;
+    min-width: 12rem;
+    
+    p{
+        
     }
 
 }

@@ -12,6 +12,7 @@ reversedFiles = files.slice().reverse();
 var squaresDict = {}
 var gameActive = false;
 var asWhite = true;
+var timerDuration = 60000;
 
 buildBoard();
 nameSquares();
@@ -63,7 +64,6 @@ function createSquare(file,rank,dark){
 function nameSquares() {
   var squares = board.children;
   var squareCounter = 0;
-  console.log(reversedRanks)
   var sidedRanks;
   var sidedFiles;
 
@@ -77,7 +77,6 @@ function nameSquares() {
   }
   for (var rankProx = 0; rankProx < squares.length/8; rankProx++) {
     for (var fileProx = 0; fileProx < squares.length/8; fileProx++) {
-      // console.log(squareCounter + " : " +files[fileProx % 8] + " : " + reversedRanks[rankProx % 8]);
       var square = squares[squareCounter];
       square.setAttribute("id", sidedFiles[fileProx % 8] + sidedRanks[rankProx % 8]);
       squareCounter++;
@@ -94,33 +93,36 @@ document.getElementById("btn-reset").onclick = function () {
   document.getElementById("score-box-hit-score").innerHTML = "0";
   document.getElementById("score-box-miss-score").innerHTML = "0";
   document.getElementById("active-prompt").innerHTML = "--";
+  document.getElementById("timer").innerHTML = "1:00";
+  drawSideShadows();
 };
 
 //flip board
 document.getElementById("btn-flip").onclick = function () {
-  asWhite
-    ? (document.getElementById("btn-flip").innerHTML = "Black")
-    : (document.getElementById("btn-flip").innerHTML = "White");
   asWhite = !asWhite;
+  drawSideShadows();
   if(gameActive){
     toggleGameState();
   }
   buildBoard();
   nameSquares();
-
 };
 
 function toggleGameState() {
-  if(!gameActive){
+  //start game
+  gameActive = !gameActive;
+  if (gameActive) {
     document.getElementById("btn-start").innerHTML = "Stop";
     buildBoard();
     nameSquares();
     setActiveSquare();
+    startTimer();
   }
-  else{
+  //pause game
+  else {
     document.getElementById("btn-start").innerHTML = "Start";
   }
-  gameActive = !gameActive;
+  
 }
 
 function checkCorrect(element){
@@ -153,3 +155,58 @@ function setActiveSquare(){
   activeSquareElement.className += " active-square";
   document.getElementById("active-prompt").innerHTML = activeSquareName;
 }
+
+function startTimer(){
+  var startTime = new Date()
+  var timerElement = document.getElementById("timer");
+  console.log(timerDuration)
+  startTime = startTime.getTime()+timerDuration;
+  timerElement.innerHTML = "0:59";
+
+  //countdown logic
+  setTimeout(function run() {
+    var timeExpired = isTimeExpired(startTime);
+    if(gameActive){
+      if (!timeExpired) {
+        setTimeout(run, 1000);
+      } else {
+        toggleGameState();
+      }
+    }
+
+  }, 1000);
+}
+
+function isTimeExpired(startTime){
+  //returns bool, draws time and last 10s countdown styling
+  var currentTime = new Date().getTime();
+  if(currentTime < startTime){
+    var timerElement = document.getElementById("timer");
+    var secondsRemaining = Math.floor((startTime - currentTime)/1000);
+    if(secondsRemaining >= 10){
+      timerElement.innerHTML = "0:" + String(secondsRemaining);
+    }
+    else if (secondsRemaining < 10 && secondsRemaining%2 == 0) {
+      board.style.boxShadow = "0 0 30px red";
+      timerElement.innerHTML = "0:0" + String(secondsRemaining);
+    }
+    else{
+      drawSideShadows()
+      timerElement.innerHTML = "0:0" + String(secondsRemaining);
+    }
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
+function drawSideShadows(){
+  if (asWhite == false) {
+    document.getElementById("btn-flip").innerHTML = "Black";
+    board.style.boxShadow = "0px 20px 10px -2px black, 0px -13px 4px white";
+  } else {
+    document.getElementById("btn-flip").innerHTML = "White";
+    board.style.boxShadow = "0px 20px 10px -2px white, 0px -13px 4px black";
+  }
+};
