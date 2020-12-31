@@ -4,40 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
+      rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="css/styles.css" />
 
     <title>Chess Visualization Practice</title>
   </head>
   <body>
-      <div class="navbar">
-          <ul class="navbar--items">
-            <li><button class="btn btn-nav" id="btn-start">Start</button></li>
-            <li><button class="btn btn-nav" id="btn-flip">White</button></li>
-            <li><button class="btn btn-nav" id="btn-reset">Reset</button></li>
-            <li><button class="btn btn-nav" id="btn-reset">Config</button></li>
-          </ul>
-      </div>
-      <div class="board-container">
-      
-      </div>
-      <table class="score-box">
-        <tr>
-          <td id="score-box-hit-score">0</td>
-          <td id="score-box-miss-score">0</td>
-        </tr>
-        <th>Hits</th>
-        <th>Misses</th>
-      </table>
-      <div class="timer-box">
-        <p id="timer">1:00</p>
-      </div>
-      <div class="prompt-box">
-        <p id="active-prompt">--</p>
-      </div>
+    <div class="navbar">
+      <ul class="navbar--items">
+        <li><button class="btn btn-nav" id="btn-start">Start</button></li>
+        <li><button class="btn btn-nav" id="btn-flip">White</button></li>
+        <li><button class="btn btn-nav" id="btn-reset">Reset</button></li>
+        <li><button class="btn btn-nav" id="btn-config">Config</button></li>
+      </ul>
+    </div>
+    <div class="board-container"></div>
+    <table class="score-box">
+      <tr>
+        <td id="score-box-hit-score">0</td>
+        <td id="score-box-miss-score">0</td>
+      </tr>
+      <th>Hits</th>
+      <th>Misses</th>
+    </table>
+    <div class="timer-box">
+      <p id="timer">1:00</p>
+    </div>
+    <div class="prompt-box">
+      <p id="active-prompt">--</p>
+    </div>
+
+    <div id="modal-config" class="modal">
+      <ul class="modal--content">
+        <li><button class="btn btn-config" id="btn-mode">Mode</button></li>
+        <li><button class="btn btn-config" id="btn-">lorem</button></li>
+        <li><button class="btn btn-config" id="btn-">lorem</button></li>
+        <li><button class="btn btn-config" id="btn-">lorem</button></li>
+      </ul>
+    </div>
   </body>
 </html>
 
 <script type="module" src="js/main.js"></script>
-

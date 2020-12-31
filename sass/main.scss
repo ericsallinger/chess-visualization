@@ -25,6 +25,17 @@ $font-size-big: 4rem;
     text-align: center;
 }
 
+@mixin buttonStyle {
+    border-radius: 1rem;
+    border: .2rem solid $color-border;
+    padding: 1rem;
+    text-decoration: none;
+    background-color: darken($color-secondary,15%);
+    color:$color-light-square;
+    transition: all .2s;
+    outline:none;
+}
+
 *,
 *::after,
 *::before {
@@ -101,16 +112,8 @@ body {
         li{
             padding: 3rem;
             .btn, .btn:link, .btn:visited{
+                @include buttonStyle;
                 font-size: $font-size-medium;
-                border-radius: 1rem;
-                border: .2rem solid $color-border;
-                padding: 1rem;
-                text-decoration: none;
-                background-color: darken($color-secondary,15%);
-                color:$color-light-square;
-                transition: all .2s;
-                outline:none;
-
             }
             .btn:hover {
                 transform: translateY(-0.2rem);
@@ -134,7 +137,6 @@ body {
     transform: translateX(-6%);
     top: 6.25%;
     padding: 1rem;
-
     .score-box--items{
         list-style: none;
         display: inline-block;
@@ -157,11 +159,49 @@ body {
     right:15%;
     padding: 3rem;
     min-width: 12rem;
-    
+    animation: fadePrompt 1s .5s ease-out;
     p{
         font-size: $font-size-big;
     }
 
+}
+
+/
+.prompt-box::after{
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.prompt-box::after{
+    background-color: #FFF;
+} 
+
+.prompt-box:hover::after{
+    background-color: #FFF;
+    transform: scaleX(1.3) scaleY(1.7);
+    // opacity: 1;
+} 
+
+@keyframes fadePrompt {
+    0% {
+        opacity: 0;
+        transform:translateX(-10rem);
+    }
+    80% {
+        transform:translateX(1rem);
+    }
+    100% {
+        opacity: 1;
+        transform:translateX(0);
+    }
 }
 
 .timer-box{
@@ -170,9 +210,38 @@ body {
     top: 10%;
     padding: 1rem 3rem;
     min-width: 12rem;
-    
-    p{
+}
+
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+
+    .modal--content {
+        position: relative;
+        list-style: none;
+        background-color:  darken($color-secondary,5%);
+        top:25%;
+        left: 25%;
+        transform: translate(-50% -50%);
+        padding: 20px;
+        border: .5rem solid $color-border;
+        border-radius: 1rem;
+        width: 50%;
+
+        .btn-config {
+            @include buttonStyle();
+            font-size: 2.5rem;
+        }
+        
         
     }
-
 }

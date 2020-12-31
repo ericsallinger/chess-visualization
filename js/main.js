@@ -94,7 +94,10 @@ document.getElementById("btn-reset").onclick = function () {
   document.getElementById("score-box-miss-score").innerHTML = "0";
   document.getElementById("active-prompt").innerHTML = "--";
   document.getElementById("timer").innerHTML = "1:00";
-  drawSideShadows();
+  if(gameActive){
+    toggleGameState();
+  }
+  // drawSideShadows();
 };
 
 //flip board
@@ -210,3 +213,18 @@ function drawSideShadows(){
     board.style.boxShadow = "0px 20px 10px -2px white, 0px -13px 4px black";
   }
 };
+
+//open config modal
+var configBtn = document.getElementById("btn-config");
+var modal = document.getElementById("modal-config");
+configBtn.onclick = function(){
+  modal.style.display = "block";
+}
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+//flip between timer and speed modes
