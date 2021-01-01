@@ -1,3 +1,43 @@
+//speech recognition
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+
+var squares = ['a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1', 'a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2', 
+                    'a3', 'b3', 'c3', 'd3', 'e3', 'f3', 'g3', 'h3', 'a4', 'b4', 'c4', 'd4', 'e4', 'f4', 'g4', 'h4', 
+                    'a5', 'b5', 'c5', 'd5', 'e5', 'f5', 'g5', 'h5', 'a6', 'b6', 'c6', 'd6', 'e6', 'f6', 'g6', 'h6', 
+                    'a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7', 'a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8'];
+var grammar = "#JSGF V1.0; grammar squares; public <color> = ( " + squares.join(" | ") +" );";
+
+var recognition = new SpeechRecognition();
+var speechRecognitionList = new SpeechGrammarList();
+speechRecognitionList.addFromString(grammar, 1);
+recognition.grammars = speechRecognitionList;
+recognition.continuous = false;
+recognition.lang = "en-US";
+recognition.interimResults = false;
+recognition.maxAlternatives = 0;
+
+recognition.onresult = function (event) {
+  var spokenSquare = event.results[0][0].transcript;
+  spokenSquare = spokenSquare.toLowerCase()
+  // console.log(spokenSquare + " Confidence: " + event.results[0][0].confidence);
+  if (squares.includes(spokenSquare)){
+    var id = document.getElementById(spokenSquare).getAttribute("id");
+    document.getElementById("active-prompt").innerHTML = id;
+    console.log(id)
+    checkCorrect(id);
+  } 
+};
+
+recognition.onnomatch = function (event) {
+  diagnostic.textContent = "Didn't recognise that square.";
+};
+
+recognition.onerror = function (event) {
+  diagnostic.textContent = "Error occurred in recognition: " + event.error;
+};
+
 var board = document.getElementsByClassName("board-container")[0];
 var activeSquareName = null;
 
@@ -11,6 +51,7 @@ files = ["a","b","c","d","e","f","g","h"];
 reversedFiles = files.slice().reverse();
 var squaresDict = {}
 var gameActive = false;
+var gameMode = "click"
 var asWhite = true;
 var timerDuration = 60000;
 
@@ -18,6 +59,7 @@ buildBoard();
 nameSquares();
 initSquaresDict()
 
+//TODO build into tracking which squares you frequently miss
 function initSquaresDict(){
   let i;
   let j;
@@ -56,7 +98,7 @@ function createSquare(file,rank,dark){
     squareDiv.className += " light-square";
   }
   // squareDiv.setAttribute("id", rank+file);
-  squareDiv.addEventListener("click", function(){checkCorrect(this)})
+  squareDiv.addEventListener("click", function(){checkCorrect(this.getAttribute("id"));})
   board.appendChild(squareDiv);
 }
 
@@ -97,7 +139,7 @@ document.getElementById("btn-reset").onclick = function () {
   if(gameActive){
     toggleGameState();
   }
-  // drawSideShadows();
+  drawSideShadows();
 };
 
 //flip board
@@ -115,35 +157,63 @@ function toggleGameState() {
   //start game
   gameActive = !gameActive;
   if (gameActive) {
+    //when click start
     document.getElementById("btn-start").innerHTML = "Stop";
+    document.getElementById("btn-config").style.opacity = "0.5";
+    configBtn.onclick = function () {
+      modal.style.display = "none";
+    };
     buildBoard();
     nameSquares();
     setActiveSquare();
     startTimer();
+    if (gameMode == "name") {
+      recognition.start();
+    }
   }
-  //pause game
   else {
+    //when click stop
     document.getElementById("btn-start").innerHTML = "Start";
+    document.getElementById("btn-config").style.opacity = "1";
+    configBtn.onclick = function () {
+      modal.style.display = "block";
+    };
+    if(gameMode == "name"){
+      recognition.stop();
+    }
   }
   
 }
 
-function checkCorrect(element){
+function checkCorrect(id){
   if(gameActive){
-    if(element.getAttribute("id") == activeSquareName){
-      let hitsElement = document.getElementById("score-box-hit-score");
-      let currentHits = hitsElement.innerHTML;
-      currentHits = Number(currentHits) + 1;
-      hitsElement.innerHTML = String(currentHits);
+    if (gameMode == "name") {
+      recognition.stop();
     }
-    else{
-      let missesElement = document.getElementById("score-box-miss-score");
-      let currentMisses = missesElement.innerHTML;
-      currentMisses = Number(currentMisses) + 1;
-      missesElement.innerHTML = String(currentMisses);
-    }
-    setActiveSquare();
+    delay(200).then(function() {
+      if(gameMode == "name"){
+          recognition.start();
+      }
+      if(id == activeSquareName){
+        let hitsElement = document.getElementById("score-box-hit-score");
+        let currentHits = hitsElement.innerHTML;
+        currentHits = Number(currentHits) + 1;
+        hitsElement.innerHTML = String(currentHits);
+      }
+      else{
+        let missesElement = document.getElementById("score-box-miss-score");
+        let currentMisses = missesElement.innerHTML;
+        currentMisses = Number(currentMisses) + 1;
+        missesElement.innerHTML = String(currentMisses);
+      }
+      setActiveSquare();   
+    });
   }
+}
+function delay(t, v) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve.bind(null, v), t);
+  });
 }
 
 function setActiveSquare(){
@@ -154,15 +224,19 @@ function setActiveSquare(){
     Math.random() * Math.floor(Object.keys(squaresDict).length)
   );
   activeSquareName = Object.keys(squaresDict)[randSquareNum];
-  let activeSquareElement = document.getElementById(activeSquareName);
-  activeSquareElement.className += " active-square";
-  document.getElementById("active-prompt").innerHTML = activeSquareName;
+  
+  if(gameMode == "click"){
+    document.getElementById("active-prompt").innerHTML = activeSquareName;
+  }
+  else{
+    let activeSquareElement = document.getElementById(activeSquareName);
+    activeSquareElement.className += " active-square";
+  }
 }
 
 function startTimer(){
   var startTime = new Date()
   var timerElement = document.getElementById("timer");
-  console.log(timerDuration)
   startTime = startTime.getTime()+timerDuration;
   timerElement.innerHTML = "0:59";
 
@@ -221,10 +295,38 @@ configBtn.onclick = function(){
   modal.style.display = "block";
 }
 
+var modeBtn = document.getElementById("btn-mode");
+modeBtn.onclick = function () {
+  toggleGameMode();
+};
+
+function toggleGameMode(){
+  if(gameMode == "click"){
+    document.getElementById("mode-setting").innerHTML = "Name Square";
+    gameMode = "name"
+  }
+  else{
+     document.getElementById("mode-setting").innerHTML = "Click Square";
+     gameMode = "click";
+  }
+}
+
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+  if (gameMode == "name" && gameActive) {
+    recognition.abort();
+    delay(200).then(function() {
+      recognition.start();
+    });
+  }
 };
 
 //flip between timer and speed modes
+
+
+
+
+
+
