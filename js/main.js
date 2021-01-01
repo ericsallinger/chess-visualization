@@ -30,13 +30,7 @@ recognition.onresult = function (event) {
   } 
 };
 
-recognition.onnomatch = function (event) {
-  diagnostic.textContent = "Didn't recognise that square.";
-};
 
-recognition.onerror = function (event) {
-  diagnostic.textContent = "Error occurred in recognition: " + event.error;
-};
 
 var board = document.getElementsByClassName("board-container")[0];
 var activeSquareName = null;
@@ -51,7 +45,8 @@ files = ["a","b","c","d","e","f","g","h"];
 reversedFiles = files.slice().reverse();
 var squaresDict = {}
 var gameActive = false;
-var gameMode = "click"
+var gameMode = "name"
+var gameMethod = "type"
 var asWhite = true;
 var timerDuration = 60000;
 
@@ -168,7 +163,17 @@ function toggleGameState() {
     setActiveSquare();
     startTimer();
     if (gameMode == "name") {
-      recognition.start();
+      if (gameMethod == "voice") {
+        recognition.start();
+        console.log('start voice')
+      }
+      else if (gameMethod == "type"){
+        var inputField = document.getElementsByClassName("square-input")[0];
+        var promptBox = document.getElementById("active-prompt");
+        inputField.style.display = "block";
+        promptBox.style.display = "none";
+        inputField.focus();
+      }
     }
   }
   else {
@@ -185,28 +190,31 @@ function toggleGameState() {
   
 }
 
-function checkCorrect(id){
+function checkCorrect(id){   
   if(gameActive){
-    if (gameMode == "name") {
+    if (gameMode == "name" && gameMethod == "voice") {
       recognition.stop();
     }
     delay(200).then(function() {
-      if(gameMode == "name"){
-          recognition.start();
+      if (gameMode == "name" && gameMethod == "voice") {
+        recognition.start();
       }
       if(id == activeSquareName){
         let hitsElement = document.getElementById("score-box-hit-score");
         let currentHits = hitsElement.innerHTML;
         currentHits = Number(currentHits) + 1;
         hitsElement.innerHTML = String(currentHits);
+        setActiveSquare();
+        return true;
       }
       else{
         let missesElement = document.getElementById("score-box-miss-score");
         let currentMisses = missesElement.innerHTML;
         currentMisses = Number(currentMisses) + 1;
         missesElement.innerHTML = String(currentMisses);
+        setActiveSquare();
+        return false;
       }
-      setActiveSquare();   
     });
   }
 }
@@ -311,13 +319,42 @@ function toggleGameMode(){
   }
 }
 
+var methodBtn = document.getElementById("btn-method");
+methodBtn.onclick = function () {
+  toggleGameMethod();
+};
+
+function toggleGameMethod() {
+  if (gameMethod == "voice") {
+    document.getElementById("method-setting").innerHTML = "Type";
+    gameMethod = "type";
+  } else {
+    document.getElementById("method-setting").innerHTML = "Voice";
+    gameMethod = "voice";
+  }
+}
+
+//text input game method
+var input = document.getElementsByClassName("square-input")[0];
+
+// listen for enter button on text input
+input.addEventListener("keyup", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    // Trigger the button element with a click
+    // document.getElementById("myBtn").click();
+    checkCorrect(input.value);
+    input.value="";
+  }
+});
+
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-  if (gameMode == "name" && gameActive) {
+  if (gameMode == "name" && gameActive && gameMethod == "voice") {
     recognition.abort();
-    delay(200).then(function() {
+    delay(200).then(function () {
       recognition.start();
     });
   }
