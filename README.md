@@ -10,4 +10,3 @@ Practice naming the squares as either white or black
 sorry if the layout doesn't work with your browser size - i haven't gotten to the flexbox section of my css class yet :]
 
 ---
-run it locally however you know how - I use [Snowpack](https://www.snowpack.dev/tutorials/quick-start)
