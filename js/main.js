@@ -112,7 +112,7 @@ var gameActive = false;
 var gameMode = "name";
 var gameMethod = "type";
 var asWhite = true;
-var timerDuration = 5000;
+var timerDuration = 60000;
 
 buildBoard();
 nameSquares();
