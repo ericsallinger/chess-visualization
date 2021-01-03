@@ -11,7 +11,7 @@ $grid-width: 114rem;
 $gutter-vertical: 8rem;
 $gutter-horizontal: 2rem;
 
-@mixin clearfix {  
+@mixin clearfix {
   &::after {
     content: "";
     clear: both;
@@ -19,156 +19,150 @@ $gutter-horizontal: 2rem;
   }
 }
 @mixin middleBox {
-    position: absolute;
-    top: 48.75vh;
-    transform: translateY(-50%);
-    margin: 1rem;
-    border: .3rem solid $color-border;
-    border-radius: 1rem;
-    background-color: darken($color-secondary,5%);
-    text-align: center;
+  position: absolute;
+  top: 48.75vh;
+  transform: translateY(-50%);
+  margin: 1rem;
+  border: 0.3rem solid $color-border;
+  border-radius: 1rem;
+  background-color: darken($color-secondary, 5%);
+  text-align: center;
 }
 
 @mixin buttonStyle {
-    border-radius: 1rem;
-    border: .2rem solid $color-border;
-    padding: 1rem;
-    text-decoration: none;
-    background-color: darken($color-secondary,15%);
-    color:$color-light-square;
-    transition: all .2s;
-    outline:none;
+  border-radius: 1rem;
+  border: 0.2rem solid $color-border;
+  padding: 1rem;
+  text-decoration: none;
+  background-color: darken($color-secondary, 15%);
+  color: $color-light-square;
+  transition: all 0.2s;
+  outline: none;
 }
 
 *,
 *::after,
 *::before {
-    margin:0;
-    padding:0;
-    box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
 
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 body {
-    font-family: "Lato", sans-serif; 
-    font-weight: 400;
-    font-size: 1.6rem;
-    line-height: 1.7;
-    color: $color-light-square;
-    padding: 3rem;
-    box-sizing: border-box; 
-    background-color: $color-secondary;
-    
-    
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: $color-light-square;
+  padding: 3rem;
+  box-sizing: border-box;
+  background-color: $color-secondary;
 }
 
-.board-container{
-    position: absolute;
-    left: 30%;
-    transform: translateX(-50%);
-    top: 50vh;
-    transform: translateY(-50%);
-    height: 85vh;
-    width: 85vh;
-    line-height: 0;
-    border: .5rem solid $color-border;
-    box-shadow: 0rem 2rem 1rem -.2rem white, 0rem -1.3rem .4rem black;
+.board-container {
+  position: absolute;
+  left: 30%;
+  transform: translateX(-50%);
+  top: 50vh;
+  transform: translateY(-50%);
+  height: 85vh;
+  width: 85vh;
+  line-height: 0;
+  border: 0.5rem solid $color-border;
+  box-shadow: 0rem 2rem 1rem -0.2rem white, 0rem -1.3rem 0.4rem black;
 
-    transition: all .5s;
+  transition: all 0.5s;
 
+  border-radius: 0.5rem;
+  .board-square {
+    position: relative;
+    display: inline-block;
+    height: 12.5%;
+    width: 12.5%;
+  }
+  .dark-square {
+    background-color: $color-dark-square;
+  }
 
-
-    border-radius: .5rem;
-    .board-square{
-        position: relative;
-        display: inline-block;
-        height: 12.5%;
-        width: 12.5%;
-
-    }
-    .dark-square{
-        background-color: $color-dark-square;
-    }
-
-    .light-square{
-        background-color: $color-light-square;
-    }
-    .active-square{
-        background-color: $color-active-square;
-    }
-    
+  .light-square {
+    background-color: $color-light-square;
+  }
+  .active-square {
+    background-color: $color-active-square;
+  }
 }
 
-.navbar{
-    position: absolute;
-    top: 57vh;
-    transform: translateY(-50%);
-    margin: 1rem;
-    border: .3rem solid $color-border;
-    border-radius: 1rem;
-    background-color: darken($color-secondary,5%);
+.navbar {
+  position: absolute;
+  top: 57vh;
+  transform: translateY(-50%);
+  margin: 1rem;
+  border: 0.3rem solid $color-border;
+  border-radius: 1rem;
+  background-color: darken($color-secondary, 5%);
+  text-align: center;
+  left: 12.5%;
+  .navbar--items {
+    list-style: none;
+    li {
+      padding: 3rem;
+      .btn,
+      .btn:link,
+      .btn:visited {
+        @include buttonStyle;
+        font-size: $font-size-medium;
+      }
+      .btn:hover {
+        transform: translateY(-0.2rem);
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); /* x shadow, y shadow, blur, color*/
+      }
+      .btn:active {
+        transform: translateY(-0.1rem);
+        box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.2);
+      }
+      .btn-nav {
+        width: 12rem;
+      }
+    }
+  }
+}
+
+.score-box {
+  @include middleBox();
+  left: 13%;
+  transform: translateX(-6%);
+  top: 6.25%;
+  padding: 1rem;
+  .score-box--items {
+    list-style: none;
+    display: inline-block;
+  }
+  th {
+    padding: 0 0.8rem 0 0.8rem;
     text-align: center;
-    left: 12.5%;
-    .navbar--items{
-        list-style: none;
-        li{
-            padding: 3rem;
-            .btn, .btn:link, .btn:visited{
-                @include buttonStyle;
-                font-size: $font-size-medium;
-            }
-            .btn:hover {
-                transform: translateY(-0.2rem);
-                box-shadow: 0 1rem 2rem rgba(0,0,0,.2); /* x shadow, y shadow, blur, color*/
-            }
-            .btn:active {
-                transform: translateY(-0.1rem);
-                box-shadow: 0 0.1rem 1rem rgba(0,0,0,.2);
-            }
-            .btn-nav{
-                width: 12rem;
-            }
-            
-        }
-    }
+    width: 8rem;
+  }
+  td {
+    width: 8rem;
+  }
+  td:first-child {
+    border-right: solid 1px $color-dark-square;
+  }
 }
 
-.score-box{
-    @include middleBox();
-    left:13%;
-    transform: translateX(-6%);
-    top: 6.25%;
-    padding: 1rem;
-    .score-box--items{
-        list-style: none;
-        display: inline-block;
-    }
-    th{
-        padding: 0 0.8rem 0 0.8rem;
-        text-align: center;
-        width: 8rem;
-    }
-    td{
-        width: 8rem;
-    }
-    td:first-child {
-        border-right: solid 1px $color-dark-square;
-    }
-}
-
-.prompt-box{
-    @include middleBox();
-    right:15%;
-    padding: 3rem;
-    min-width: 12rem;
-    animation: fadePrompt 1s .5s ease-out;
-    p{
-        font-size: $font-size-big;
-    }
-
+.prompt-box {
+  @include middleBox();
+  right: 15%;
+  padding: 3rem;
+  min-width: 12rem;
+  animation: fadePrompt 1s 0.5s ease-out;
+  p {
+    font-size: $font-size-big;
+  }
 }
 
 // .prompt-box::after{
@@ -177,7 +171,7 @@ body {
 //     height: 100%;
 //     width: 100%;
 //     border-radius: 100px;
-//     position: absolute; 
+//     position: absolute;
 //     top: 0;
 //     left: 0;
 //     z-index: -1;
@@ -186,13 +180,13 @@ body {
 
 // .prompt-box::after{
 //     background-color: #FFF;
-// } 
+// }
 
 // .prompt-box:hover::after{
 //     background-color: #FFF;
 //     transform: scaleX(1.3) scaleY(1.7);
 //     // opacity: 1;
-// } 
+// }
 
 // @keyframes fadePrompt {
 //     0% {
@@ -208,14 +202,13 @@ body {
 //     }
 // }
 
-.timer-box{
-    @include middleBox();
-    right:15%;
-    top: 10%;
-    padding: 1rem 3rem;
-    min-width: 12rem;
+.timer-box {
+  @include middleBox();
+  right: 15%;
+  top: 10%;
+  padding: 1rem 3rem;
+  min-width: 12rem;
 }
-
 
 /* The Modal (background) */
 .modal {
@@ -227,68 +220,81 @@ body {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 
-    .modal--content {
-        position: relative;
-        list-style: none;
-        background-color:  darken($color-secondary,5%);
-        top:25%;
-        left: 25%;
-        transform: translate(-50% -50%);
-        padding: 20px;
-        border: .5rem solid $color-border;
-        border-radius: 1rem;
-        width: 50%;
+  .modal--content {
+    position: relative;
+    list-style: none;
+    background-color: darken($color-secondary, 5%);
+    top: 25%;
+    left: 25%;
+    transform: translate(-50% -50%);
+    padding: 20px;
+    border: 0.5rem solid $color-border;
+    border-radius: 1rem;
+    width: 50%;
 
-        .btn-config {
-            @include buttonStyle();
-            font-size: 2.5rem;
-        }
-        
-        
+    .btn-config {
+      @include buttonStyle();
+      font-size: 2.5rem;
     }
+
+    .setting {
+      border-radius: 1rem;
+      border: 0.2rem solid transparent;
+      padding: 1rem;
+      text-decoration: none;
+      background-color: darken($color-secondary, 15%);
+      color: $color-light-square;
+      transition: all 0.2s;
+      outline: none;
+    }
+  }
 }
 
 .row {
-    max-width: $grid-width;
-    margin: 0 auto;
+  max-width: $grid-width;
+  margin: 0 auto;
 
-    &:not(:last-child){ //&:not selects everything except the parameter specified 
-        //(in this case, selects everything except the last child pseudoclass)
-        margin-bottom: $gutter-vertical;
+  &:not(:last-child) {
+    //&:not selects everything except the parameter specified
+    //(in this case, selects everything except the last child pseudoclass)
+    margin-bottom: $gutter-vertical;
+  }
+  @include clearfix;
+
+  [class^="col-"] {
+    //selects all elements that have a class name starting with 'col-'
+    // $ instead of ^ would specify ends with
+    //you can use [ ] to select any attribute
+    float: left;
+
+    &:not(:last-child) {
+      margin-right: $gutter-horizontal;
     }
-    @include clearfix;
+  }
 
-    [class^="col-"]{ //selects all elements that have a class name starting with 'col-'
-        // $ instead of ^ would specify ends with 
-        //you can use [ ] to select any attribute
-        float: left;  
-
-        &:not(:last-child){
-            margin-right: $gutter-horizontal;
-        }  
-    }
-
-    .col-1-of-2 {
-        width: calc((100% - #{$gutter-horizontal})/2); //must escape sass variables in calc() with 
-    }
+  .col-1-of-2 {
+    width: calc(
+      (100% - #{$gutter-horizontal}) / 2
+    ); //must escape sass variables in calc() with
+  }
 }
 
 .square-input {
-    color: $color-light-square;
-    max-width: 5rem;
-    padding: 1rem 0;
-    min-height: 100%;
-    font-size: $font-size-big;
-    border: none;
-    display: none;
-    &:focus {
-        outline: none;
-    }
+  color: $color-light-square;
+  max-width: 5rem;
+  padding: 1rem 0;
+  min-height: 100%;
+  font-size: $font-size-big;
+  border: none;
+  display: none;
+  &:focus {
+    outline: none;
+  }
 }
 
-input[type="text"], textarea {
-     background-color: darken($color-secondary,5%);
+input[type="text"],
+textarea {
+  background-color: darken($color-secondary, 5%);
 }
-

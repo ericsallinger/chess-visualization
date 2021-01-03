@@ -28,9 +28,9 @@ body {
   width: 85vh;
   line-height: 0;
   border: 0.5rem solid #0f0f0f;
-  box-shadow: 0rem 2rem 1rem -.2rem white, 0rem -1.3rem .4rem black;
-  transition: all .5s;
-  border-radius: .5rem; }
+  box-shadow: 0rem 2rem 1rem -0.2rem white, 0rem -1.3rem 0.4rem black;
+  transition: all 0.5s;
+  border-radius: 0.5rem; }
   .board-container .board-square {
     position: relative;
     display: inline-block;
@@ -57,14 +57,16 @@ body {
     list-style: none; }
     .navbar .navbar--items li {
       padding: 3rem; }
-      .navbar .navbar--items li .btn, .navbar .navbar--items li .btn:link, .navbar .navbar--items li .btn:visited {
+      .navbar .navbar--items li .btn,
+      .navbar .navbar--items li .btn:link,
+      .navbar .navbar--items li .btn:visited {
         border-radius: 1rem;
         border: 0.2rem solid #0f0f0f;
         padding: 1rem;
         text-decoration: none;
         background-color: #ab844e;
         color: #e6e6e6;
-        transition: all .2s;
+        transition: all 0.2s;
         outline: none;
         font-size: 3rem; }
       .navbar .navbar--items li .btn:hover {
@@ -114,7 +116,7 @@ body {
   right: 15%;
   padding: 3rem;
   min-width: 12rem;
-  animation: fadePrompt 1s .5s ease-out; }
+  animation: fadePrompt 1s 0.5s ease-out; }
   .prompt-box p {
     font-size: 4rem; }
 
@@ -161,9 +163,18 @@ body {
       text-decoration: none;
       background-color: #ab844e;
       color: #e6e6e6;
-      transition: all .2s;
+      transition: all 0.2s;
       outline: none;
       font-size: 2.5rem; }
+    .modal .modal--content .setting {
+      border-radius: 1rem;
+      border: 0.2rem solid transparent;
+      padding: 1rem;
+      text-decoration: none;
+      background-color: #ab844e;
+      color: #e6e6e6;
+      transition: all 0.2s;
+      outline: none; }
 
 .row {
   max-width: 114rem;
@@ -179,7 +190,7 @@ body {
     .row [class^="col-"]:not(:last-child) {
       margin-right: 2rem; }
   .row .col-1-of-2 {
-    width: calc((100% - 2rem)/2); }
+    width: calc( (100% - 2rem) / 2); }
 
 .square-input {
   color: #e6e6e6;
@@ -192,5 +203,6 @@ body {
   .square-input:focus {
     outline: none; }
 
-input[type="text"], textarea {
+input[type="text"],
+textarea {
   background-color: #bd9c6e; }

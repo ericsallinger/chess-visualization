@@ -30,8 +30,6 @@ recognition.onresult = function (event) {
   } 
 };
 
-
-
 var board = document.getElementsByClassName("board-container")[0];
 var activeSquareName = null;
 
@@ -165,7 +163,6 @@ function toggleGameState() {
     if (gameMode == "name") {
       if (gameMethod == "voice") {
         recognition.start();
-        console.log('start voice')
       }
       else if (gameMethod == "type"){
         var inputField = document.getElementsByClassName("square-input")[0];
@@ -310,11 +307,11 @@ modeBtn.onclick = function () {
 
 function toggleGameMode(){
   if(gameMode == "click"){
-    document.getElementById("mode-setting").innerHTML = "Name Square";
+    document.getElementById("mode-setting").innerHTML = "name square";
     gameMode = "name"
   }
   else{
-     document.getElementById("mode-setting").innerHTML = "Click Square";
+     document.getElementById("mode-setting").innerHTML = "click square";
      gameMode = "click";
   }
 }
@@ -326,10 +323,10 @@ methodBtn.onclick = function () {
 
 function toggleGameMethod() {
   if (gameMethod == "voice") {
-    document.getElementById("method-setting").innerHTML = "Type";
+    document.getElementById("method-setting").innerHTML = "type square name";
     gameMethod = "type";
   } else {
-    document.getElementById("method-setting").innerHTML = "Voice";
+    document.getElementById("method-setting").innerHTML = "speak square name";
     gameMethod = "voice";
   }
 }
